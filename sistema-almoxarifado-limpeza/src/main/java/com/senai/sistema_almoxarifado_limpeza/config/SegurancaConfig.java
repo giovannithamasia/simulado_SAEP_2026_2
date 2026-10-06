@@ -2,7 +2,6 @@ package com.senai.sistema_almoxarifado_limpeza.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,15 +19,13 @@ public class SegurancaConfig {
                         // Público: arquivos estáticos, login e página de erro
                         .requestMatchers("/css/**", "/js/**", "/images/**", "/login", "/error").permitAll()
 
-                        // Só ADMIN: cadastrar (GET e POST), atualizar e excluir produto
-                        .requestMatchers("/produtocadastrar", "/produtoatualizar/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/produtoexcluir/**").hasRole("ADMIN")
+                        // OPERADOR e ADMIN: Inserir, Atualizar e Consultar dados
+                        .requestMatchers("/produtocadastrar", "/produtoatualizar/**").hasAnyRole("ADMIN","OPERADOR")
+                        .requestMatchers("/produtolista").hasAnyRole("ADMIN", "OPERADOR")
+                        .requestMatchers("/home", "/movimentacoes/**", "/movimentacaocadastrar").hasAnyRole("ADMIN", "OPERADOR")
 
-                        // ADMIN e USER: apenas listar produto
-                        .requestMatchers("/produtolista").hasAnyRole("ADMIN", "USER")
-
-                        // ADMIN e USER: home e estoque
-                        .requestMatchers("/home", "/movimentacoes/**", "/movimentacaocadastrar").hasAnyRole("ADMIN", "USER")
+                        // APENAS ADMIN: Deletar dados e Cadastrar novos usuários
+                        .requestMatchers("/produtoexcluir/**", "/usuariocadastrar/**").hasRole("ADMIN")
 
                         // Qualquer outra rota: basta estar logado
                         .anyRequest().authenticated()

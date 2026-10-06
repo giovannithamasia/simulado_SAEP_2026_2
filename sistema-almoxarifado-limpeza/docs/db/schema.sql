@@ -6,7 +6,7 @@ CREATE TABLE usuario (
      nome VARCHAR(50) NOT NULL,
      login VARCHAR(45) NOT NULL UNIQUE,
      senha VARCHAR(255) NOT NULL,
-     papel ENUM('ROLE_ADMIN', 'ROLE_USER') NOT NULL
+     papel ENUM('ROLE_ADMIN', 'ROLE_OPERADOR') NOT NULL
 );
 
 CREATE TABLE produto (
@@ -31,8 +31,8 @@ CREATE TABLE movimentacao_estoque (
 
 INSERT INTO usuario (nome, login, senha, papel) VALUES
 ('Giovanni', 'giovanni', 'gio123', 'ROLE_ADMIN'),
- ('Maria', 'maria', 'maria123', 'ROLE_USER'),
-('João', 'joao', 'jo123', 'ROLE_USER');
+('Maria', 'maria', 'maria123', 'ROLE_OPERADOR'),
+('João', 'joao', 'jo123', 'ROLE_OPERADOR');
 
 INSERT INTO produto (codigo, nome, caracteristicas, estoque_atual, estoque_minimo) VALUES
 ('FRM-001', 'Martelo Unha', 'Cabo de madeira, cabeca de aco', 50, 10),
@@ -41,5 +41,5 @@ INSERT INTO produto (codigo, nome, caracteristicas, estoque_atual, estoque_minim
 
 INSERT INTO movimentacao_estoque (id_produto, id_usuario, tipo_movimentacao, quantidade, data_movimentacao) VALUES
 (1, 1, 'ENTRADA', 20, '2026-08-10 10:00:00'),
- (2, 2, 'SAIDA', 2, '2026-08-10 11:30:00'),
- (3, 3, 'ENTRADA', 40, '2026-08-10 14:15:00');
+(2, 2, 'SAIDA', 2, '2026-08-10 11:30:00'),
+(3, 3, 'ENTRADA', 40, '2026-08-10 14:15:00');

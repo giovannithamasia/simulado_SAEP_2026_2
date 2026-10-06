@@ -47,7 +47,7 @@
                     <div class="dropdown-header" style="display: flex; flex-direction: column;">
                         <span class="user-name" th:text="${usuarioLogado != null ? usuarioLogado : 'Usuário'}">Usuário</span>
                         <span th:if="${isAdmin}" style="font-size: 12px; color: #a0aec0;">(Admin)</span>
-                        <span th:unless="${isAdmin}" style="font-size: 12px; color: #a0aec0;">(Usuário)</span>
+                        <span th:unless="${isAdmin}" style="font-size: 12px; color: #a0aec0;">(Operador)</span>
                     </div>
                     <div class="dropdown-divider"></div>
 
